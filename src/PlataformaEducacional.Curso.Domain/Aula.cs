@@ -4,6 +4,11 @@ namespace PlataformaEducacional.Conteudo.Domain
 {
     public class Aula : EntityBase
     {
+        protected Aula()
+        {
+
+        }
+
         public Aula(string titulo, TimeSpan duracao, Guid cursoId)
         {
             Titulo = titulo;
@@ -15,6 +20,7 @@ namespace PlataformaEducacional.Conteudo.Domain
 
         public string Titulo { get; private set; }
         public TimeSpan Duracao { get; private set; }
+        public DateTime DataCadastro { get; private set; }
         public Guid CursoId { get; private set; }
         public bool Ativo { get; private set; }
         public virtual Curso Curso { get; private set; }

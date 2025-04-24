@@ -9,6 +9,7 @@ namespace PlataformaEducacional.Aluno.Domain
             NomeCompleto = nomeCompleto;
             Email = email;
             DataNascimento = dataNascimento;
+            Historico = new HistoricoAprendizado();
 
             Validar();
         }
@@ -16,6 +17,9 @@ namespace PlataformaEducacional.Aluno.Domain
         public string NomeCompleto { get; private set; }
         public string Email { get; private set; }
         public DateTime DataNascimento { get; private set; }
+        public DateTime DataCadastro { get; private set; }
+        public HistoricoAprendizado Historico { get; private set; }
+
         public virtual ICollection<Matricula> Matriculas { get; private set; }
         public virtual ICollection<Certificado> Certificados { get; private set; }
 
@@ -35,6 +39,11 @@ namespace PlataformaEducacional.Aluno.Domain
         public void AdicionarCertificado(Certificado certificado)
         {
             Certificados.Add(certificado);
+        }
+
+        public void RegistrarProgresso(string aulaTitulo, DateTime data)
+        {
+            Historico.AdicionarRegistro(aulaTitulo, data);
         }
     }
 }

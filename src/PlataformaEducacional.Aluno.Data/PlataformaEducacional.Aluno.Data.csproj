@@ -16,8 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PlataformaEducacional.Aluno.Domain\PlataformaEducacional.Aluno.Domain.csproj" />
     <ProjectReference Include="..\PlataformaEducacional.Core\PlataformaEducacional.Core.csproj" />
-    <ProjectReference Include="..\PlataformaEducacional.Curso.Domain\PlataformaEducacional.Conteudo.Domain.csproj" />
   </ItemGroup>
 
 </Project>

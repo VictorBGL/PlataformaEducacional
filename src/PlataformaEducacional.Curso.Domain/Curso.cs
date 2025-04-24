@@ -4,6 +4,11 @@ namespace PlataformaEducacional.Conteudo.Domain
 {
     public class Curso : EntityBase, IAggregateRoot
     {
+        protected Curso()
+        {
+
+        }
+
         public Curso(string nome, ConteudoProgramatico conteudo)
         {
             Nome = nome;
@@ -13,6 +18,7 @@ namespace PlataformaEducacional.Conteudo.Domain
         }
 
         public string Nome { get; private set; }
+        public DateTime DataCadastro { get; private set; }
         public ConteudoProgramatico Conteudo { get; private set; }
         public virtual ICollection<Aula> Aulas { get; private set; }
 
