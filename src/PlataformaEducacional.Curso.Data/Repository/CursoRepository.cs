@@ -15,22 +15,22 @@ namespace PlataformaEducacional.Conteudo.Data
 
         public IUnitOfWork UnitOfWork => _context;
 
-        public async Task<IEnumerable<PlataformaEducacional.Conteudo.Domain.Curso>> ObterTodos()
+        public async Task<IEnumerable<Curso>> ObterTodos()
         {
             return await _context.Cursos.AsNoTracking().ToListAsync();
         }
 
-        public async Task<PlataformaEducacional.Conteudo.Domain.Curso> ObterPorId(Guid id)
+        public async Task<Curso> ObterPorId(Guid id)
         {
-            return await _context.Cursos.FindAsync(id);
+            return await _context.Cursos.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
         }
 
-        public void Adicionar(PlataformaEducacional.Conteudo.Domain.Curso produto)
+        public void Adicionar(Curso produto)
         {
             _context.Cursos.Add(produto);
         }
 
-        public void Atualizar(PlataformaEducacional.Conteudo.Domain.Curso produto)
+        public void Atualizar(Curso produto)
         {
             _context.Cursos.Update(produto);
         }

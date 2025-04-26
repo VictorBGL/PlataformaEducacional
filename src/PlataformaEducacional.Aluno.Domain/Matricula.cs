@@ -10,7 +10,6 @@ namespace PlataformaEducacional.Aluno.Domain
             CursoId = cursoId;
             Data = dataMatricula;
             Concluido = false;
-            Historico = new HistoricoAprendizado();
 
             Validar();
         }
@@ -21,7 +20,6 @@ namespace PlataformaEducacional.Aluno.Domain
         public DateTime Data { get; private set; }
         public bool Concluido { get; private set; }
         public virtual Aluno Aluno { get; private set; }
-        public HistoricoAprendizado Historico { get; private set; }
 
 
         public void Validar()
@@ -32,11 +30,6 @@ namespace PlataformaEducacional.Aluno.Domain
         public void ConcluirCurso()
         {
             Concluido = true;
-        }
-
-        public void RegistrarProgresso(string aulaTitulo, DateTime data)
-        {
-            Historico.AdicionarRegistro(aulaTitulo, data);
         }
     }
 }

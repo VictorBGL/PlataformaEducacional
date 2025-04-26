@@ -1,16 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PlataformaEducacional.Conteudo.Domain;
+using PlataformaEducacional.Aluno.Domain;
 using PlataformaEducacional.Core.Data;
 
-namespace PlataformaEducacional.Conteudo.Data
+namespace PlataformaEducacional.Aluno.Data
 {
-    public class ConteudoContext : DbContext, IUnitOfWork
+    public class AlunoContext : DbContext, IUnitOfWork
     {
-        public ConteudoContext(DbContextOptions<ConteudoContext> options)
+        public AlunoContext(DbContextOptions<AlunoContext> options)
             : base(options) { }
 
-        public DbSet<Curso> Cursos { get; set; }
-        public DbSet<Aula> Aulas { get; set; }
+        public DbSet<PlataformaEducacional.Aluno.Domain.Aluno> Alunos { get; set; }
+        public DbSet<Certificado> Certificados { get; set; }
+        public DbSet<Matricula> Matriculas { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -20,11 +21,8 @@ namespace PlataformaEducacional.Conteudo.Data
                 property.SetColumnType("varchar(100)");
             }
 
-            //modelBuilder.Ignore<Event>();
-
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ConteudoContext).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(AlunoContext).Assembly);
         }
-
 
         public async Task<bool> Commit()
         {
