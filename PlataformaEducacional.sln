@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlataformaEducacional.Aluno
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlataformaEducacional.Financeiro.Data", "src\PlataformaEducacional.Financeiro.Data\PlataformaEducacional.Financeiro.Data.csproj", "{832218E6-C0D8-4E1F-8535-E8AD93645CBC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlataformaEducacional.Api", "src\PlataformaEducacional.Api\PlataformaEducacional.Api.csproj", "{D3F642D3-A138-4B18-88DD-FFBF2F861952}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{832218E6-C0D8-4E1F-8535-E8AD93645CBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{832218E6-C0D8-4E1F-8535-E8AD93645CBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{832218E6-C0D8-4E1F-8535-E8AD93645CBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3F642D3-A138-4B18-88DD-FFBF2F861952}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3F642D3-A138-4B18-88DD-FFBF2F861952}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3F642D3-A138-4B18-88DD-FFBF2F861952}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3F642D3-A138-4B18-88DD-FFBF2F861952}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -79,6 +85,7 @@ Global
 		{B29E4B7C-52C6-4E0B-BCB7-DA80A4785BF7} = {4C6241B8-5BF5-4075-8AC5-2171810D62A2}
 		{0F5322A9-D42A-47AC-987D-B6B8EA464637} = {163D39A7-3650-4DF3-8A1B-7EA568A00360}
 		{832218E6-C0D8-4E1F-8535-E8AD93645CBC} = {FE87AE96-5184-47A7-B953-324210F87115}
+		{D3F642D3-A138-4B18-88DD-FFBF2F861952} = {E3486E49-4E8D-4786-81D8-E8F959CB55EC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C9C53623-F85D-486E-8073-C2A8762CBAAA}
