@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Events\" />
+    <Folder Include="Commands\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PlataformaEducacional.Aluno.Data\PlataformaEducacional.Aluno.Data.csproj" />
+    <ProjectReference Include="..\PlataformaEducacional.Aluno.Domain\PlataformaEducacional.Aluno.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

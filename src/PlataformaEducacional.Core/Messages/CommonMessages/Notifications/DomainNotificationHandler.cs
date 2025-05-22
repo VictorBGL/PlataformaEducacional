@@ -1,5 +1,4 @@
-﻿using EducaOnline.Core.Messages.CommonMessages.Notifications;
-using MediatR;
+﻿using MediatR;
 
 namespace PlataformaEducacional.Core.Messages.CommonMessages.Notifications
 {

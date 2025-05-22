@@ -23,6 +23,7 @@
     <ProjectReference Include="..\PlataformaEducacional.Core\PlataformaEducacional.Core.csproj" />
     <ProjectReference Include="..\PlataformaEducacional.Curso.Data\PlataformaEducacional.Conteudo.Data.csproj" />
     <ProjectReference Include="..\PlataformaEducacional.Financeiro.Data\PlataformaEducacional.Financeiro.Data.csproj" />
+    <ProjectReference Include="..\PlataformaEducacional.Financeiro.Data\PlataformaEducacional.Financeiro.Data.csproj" />
   </ItemGroup>
 
 </Project>
