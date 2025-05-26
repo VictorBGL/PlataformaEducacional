@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PlataformaEducacional.Aluno.Data;
+using PlataformaEducacional.Api.Data;
 using PlataformaEducacional.Conteudo.Data;
 using PlataformaEducacional.Financeiro.Data;
 
@@ -9,7 +10,7 @@ namespace PlataformaEducacional.Api.Configurations
     {
         public static void AddApiConfig(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<DbContext>(options =>
+            services.AddDbContext<Context>(options =>
                 options.UseSqlite(configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDbContext<AlunoContext>(options =>
@@ -39,7 +40,7 @@ namespace PlataformaEducacional.Api.Configurations
 
             services.AddEndpointsApiExplorer();
             services.AddSwaggerConfig();
-            services.AddAutoMapper(typeof(Program));
+            //services.AddAutoMapper(typeof(Program));
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<Program>());
         }
 

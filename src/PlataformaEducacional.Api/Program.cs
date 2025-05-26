@@ -18,4 +18,6 @@ var app = builder.Build();
 
 app.UseApiConfig(app.Environment);
 
+app.UseDbMigrationHelper();
+
 app.Run();

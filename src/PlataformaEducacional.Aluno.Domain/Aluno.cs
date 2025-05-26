@@ -14,6 +14,18 @@ namespace PlataformaEducacional.Aluno.Domain
             Validar();
         }
 
+        public Aluno(Guid id, string nomeCompleto, string email, DateTime dataNascimento)
+        {
+            Id = id;
+            NomeCompleto = nomeCompleto;
+            Email = email;
+            DataNascimento = dataNascimento;
+            DataCadastro = DateTime.Now;
+            Historico = new HistoricoAprendizado();
+
+            Validar();
+        }
+
         public string NomeCompleto { get; private set; }
         public string Email { get; private set; }
         public DateTime DataNascimento { get; private set; }

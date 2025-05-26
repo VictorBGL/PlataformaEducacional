@@ -6,9 +6,9 @@ using PlataformaEducacional.Core.Messages;
 
 namespace PlataformaEducacional.Api.Data
 {
-    public class DbContext : IdentityDbContext<IdentityUser>
+    public class Context : IdentityDbContext<IdentityUser>
     {
-        public DbContext(DbContextOptions<DbContext> options) : base(options)
+        public Context(DbContextOptions<Context> options) : base(options)
         {
 
         }
