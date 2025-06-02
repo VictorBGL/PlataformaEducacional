@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PlataformaEducacional.Aluno.Data\PlataformaEducacional.Aluno.Data.csproj" />
+    <ProjectReference Include="..\PlataformaEducacional.Conteudo.Application\PlataformaEducacional.Conteudo.Application.csproj" />
     <ProjectReference Include="..\PlataformaEducacional.Core\PlataformaEducacional.Core.csproj" />
     <ProjectReference Include="..\PlataformaEducacional.Curso.Data\PlataformaEducacional.Conteudo.Data.csproj" />
     <ProjectReference Include="..\PlataformaEducacional.Financeiro.Data\PlataformaEducacional.Financeiro.Data.csproj" />

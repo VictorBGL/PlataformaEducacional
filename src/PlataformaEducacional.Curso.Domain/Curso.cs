@@ -9,9 +9,10 @@ namespace PlataformaEducacional.Conteudo.Domain
 
         }
 
-        public Curso(string nome, ConteudoProgramatico conteudo)
+        public Curso(string nome, bool ativo, ConteudoProgramatico conteudo)
         {
             Nome = nome;
+            Ativo = ativo;
             Conteudo = conteudo;
 
             Validar();
@@ -27,11 +28,48 @@ namespace PlataformaEducacional.Conteudo.Domain
         public void Validar()
         {
             Validacoes.ValidarSeVazio(Nome, "O campo Nome do curso não pode estar vazio");
+
+            Conteudo.Validar();
+        }
+
+        public void Atualizar(Curso curso)
+        {
+            Nome = curso.Nome;
+            Ativo = curso.Ativo;
+            Conteudo = curso.Conteudo;
+        }
+
+        public void AlterarStatus(bool ativo)
+        {
+            Ativo = ativo;
         }
 
         public void AdicionarAula(Aula aula)
         {
+            if (Aulas == null)
+                Aulas = new List<Aula>();
+
+            aula.Validar();
             Aulas.Add(aula);
+        }
+
+        public void AlterarAula(Guid aulaId, Aula aula)
+        {
+            foreach (var aulaDb in Aulas.Where(p => p.Id == aulaId))
+            {
+                aula.Validar();
+                aulaDb.Atualizar(aula);
+            }
+        }
+
+        public void RemoverAula(Guid aulaId)
+        {
+            var aula = Aulas.FirstOrDefault(p => p.Id == aulaId);
+
+            if (aula == null)
+                throw new DomainException("Aula não encontrada");
+
+            Aulas.Remove(aula);
         }
     }
 }

@@ -15,9 +15,9 @@ namespace PlataformaEducacional.Conteudo.Data
 
         public IUnitOfWork UnitOfWork => _context;
 
-        public async Task<IEnumerable<Curso>> ObterTodos()
+        public async Task<IQueryable<Curso>> ObterTodos()
         {
-            return await _context.Cursos.AsNoTracking().ToListAsync();
+            return await Task.FromResult(_context.Cursos.AsNoTracking());
         }
 
         public async Task<Curso> ObterPorId(Guid id)
@@ -25,14 +25,19 @@ namespace PlataformaEducacional.Conteudo.Data
             return await _context.Cursos.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
         }
 
-        public void Adicionar(Curso produto)
+        public void Adicionar(Curso curso)
         {
-            _context.Cursos.Add(produto);
+            _context.Cursos.Add(curso);
         }
 
-        public void Atualizar(Curso produto)
+        public void Atualizar(Curso curso)
         {
-            _context.Cursos.Update(produto);
+            _context.Cursos.Update(curso);
+        }
+
+        public void Remover(Curso curso)
+        {
+            _context.Cursos.Remove(curso);
         }
 
         public void Dispose()
