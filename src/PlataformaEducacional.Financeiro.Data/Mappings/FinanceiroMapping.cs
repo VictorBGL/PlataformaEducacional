@@ -10,7 +10,7 @@ namespace PlataformaEducacional.Financeiro.Data
         {
             builder.HasKey(x => x.Id);
 
-            //builder.ToTable("Pagamento");
+            builder.ToTable("Pagamento");
         }
     }
 }

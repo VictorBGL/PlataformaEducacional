@@ -2,6 +2,8 @@
 {
     public class StatusPagamento
     {
+        public StatusPagamento() { }
+
         private StatusPagamento(string status, string? motivo = null)
         {
             Status = status;

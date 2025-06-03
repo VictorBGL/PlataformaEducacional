@@ -39,8 +39,8 @@ namespace PlataformaEducacional.Api.Configurations
             var alunoContext = scope.ServiceProvider.GetRequiredService<AlunoContext>();
             await alunoContext.Database.MigrateAsync();
 
-            var financeiroContext = scope.ServiceProvider.GetRequiredService<FinanceiroContext>();
-            await financeiroContext.Database.MigrateAsync();
+            //var financeiroContext = scope.ServiceProvider.GetRequiredService<FinanceiroContext>();
+            //await financeiroContext.Database.MigrateAsync();
 
 
             await EnsureSeedProducts(context, alunoContext);
@@ -78,7 +78,7 @@ namespace PlataformaEducacional.Api.Configurations
 
             var roleId = Guid.NewGuid().ToString();
 
-            context.Roles.AddAsync(new IdentityRole
+            await context.Roles.AddAsync(new IdentityRole
             {
                 Id = roleId,
                 Name = "Admin"
@@ -89,7 +89,7 @@ namespace PlataformaEducacional.Api.Configurations
             if (context.UserRoles.Any())
                 return;
 
-            context.UserRoles.AddAsync(new IdentityUserRole<string>
+            await context.UserRoles.AddAsync(new IdentityUserRole<string>
             {
                 RoleId = roleId,
                 UserId = userId.ToString()
@@ -128,7 +128,7 @@ namespace PlataformaEducacional.Api.Configurations
 
             var roleAlunoId = Guid.NewGuid().ToString();
 
-            context.Roles.AddAsync(new IdentityRole
+            await context.Roles.AddAsync(new IdentityRole
             {
                 Id = roleAlunoId,
                 Name = "Aluno"
@@ -136,7 +136,7 @@ namespace PlataformaEducacional.Api.Configurations
 
             await context.SaveChangesAsync();
 
-            context.UserRoles.AddAsync(new IdentityUserRole<string>
+            await context.UserRoles.AddAsync(new IdentityUserRole<string>
             {
                 RoleId = roleAlunoId,
                 UserId = userAlunoId.ToString()

@@ -84,7 +84,7 @@ namespace PlataformaEducacional.Api.Controllers
             var userRoles = await _userManager.GetRolesAsync(identityUser);
 
             claims.Add(new Claim(JwtRegisteredClaimNames.Sub, identityUser.Id.ToString()));
-            claims.Add(new Claim(JwtRegisteredClaimNames.Email, identityUser.Email));
+            claims.Add(new Claim(JwtRegisteredClaimNames.Email, identityUser.Email ?? string.Empty));
             claims.Add(new Claim(JwtRegisteredClaimNames.Name, usuarioNome));
             claims.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()));
             claims.Add(new Claim(JwtRegisteredClaimNames.Nbf, ToUnixEpochDate(DateTime.UtcNow).ToString()));
@@ -108,7 +108,7 @@ namespace PlataformaEducacional.Api.Controllers
         private string CodificarToken(ClaimsIdentity identityClaims)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+            var key = Encoding.ASCII.GetBytes(_appSettings.Secret ?? string.Empty);
             var token = tokenHandler.CreateToken(new SecurityTokenDescriptor
             {
                 Issuer = _appSettings.Emissor,
@@ -125,7 +125,7 @@ namespace PlataformaEducacional.Api.Controllers
         private async Task<LoginResponseModel> ObterRespostaToken(string encodedToken,
             IdentityUser identityUser, string nomeUsuario, IEnumerable<Claim> claims)
         {
-            return new LoginResponseModel
+            var resposta = new LoginResponseModel
             {
                 Authenticated = true,
                 AccessToken = encodedToken,
@@ -133,11 +133,13 @@ namespace PlataformaEducacional.Api.Controllers
                 UsuarioToken = new UsuarioTokenResponseModel
                 {
                     Id = identityUser.Id,
-                    Email = identityUser.Email,
+                    Email = identityUser.Email ?? string.Empty,
                     Nome = nomeUsuario,
                     Claims = claims.Select(c => new UsuarioClaimResponseModel { Type = c.Type, Value = c.Value })
                 }
             };
+
+            return await Task.FromResult(resposta);
         }
 
         private static long ToUnixEpochDate(DateTime date)

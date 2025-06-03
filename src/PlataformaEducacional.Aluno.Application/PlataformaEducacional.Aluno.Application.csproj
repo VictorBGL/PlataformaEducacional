@@ -8,10 +8,10 @@
 
   <ItemGroup>
     <Folder Include="Events\" />
-    <Folder Include="Commands\" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PlataformaEducacional.Aluno.AntiCorruption\PlataformaEducacional.Aluno.AntiCorruption.csproj" />
     <ProjectReference Include="..\PlataformaEducacional.Aluno.Data\PlataformaEducacional.Aluno.Data.csproj" />
     <ProjectReference Include="..\PlataformaEducacional.Aluno.Domain\PlataformaEducacional.Aluno.Domain.csproj" />
   </ItemGroup>

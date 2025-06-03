@@ -9,7 +9,6 @@ namespace PlataformaEducacional.Aluno.Domain
             NomeCompleto = nomeCompleto;
             Email = email;
             DataNascimento = dataNascimento;
-            Historico = new HistoricoAprendizado();
 
             Validar();
         }
@@ -21,7 +20,6 @@ namespace PlataformaEducacional.Aluno.Domain
             Email = email;
             DataNascimento = dataNascimento;
             DataCadastro = DateTime.Now;
-            Historico = new HistoricoAprendizado();
 
             Validar();
         }
@@ -30,10 +28,9 @@ namespace PlataformaEducacional.Aluno.Domain
         public string Email { get; private set; }
         public DateTime DataNascimento { get; private set; }
         public DateTime DataCadastro { get; private set; }
-        public HistoricoAprendizado Historico { get; private set; }
 
-        public virtual ICollection<Matricula> Matriculas { get; private set; }
-        public virtual ICollection<Certificado> Certificados { get; private set; }
+        public virtual ICollection<Matricula>? Matriculas { get; private set; }
+        public virtual ICollection<Certificado>? Certificados { get; private set; }
 
 
         public void Validar()
@@ -45,11 +42,17 @@ namespace PlataformaEducacional.Aluno.Domain
 
         public void AdicionarMatricula(Matricula matricula)
         {
+            if(Matriculas == null)
+                Matriculas = new List<Matricula>();
+
             Matriculas.Add(matricula);
         }
 
         public void AdicionarCertificado(Certificado certificado)
         {
+            if (Certificados == null)
+                Certificados = new List<Certificado>();
+
             Certificados.Add(certificado);
         }
 

@@ -8,7 +8,7 @@ namespace PlataformaEducacional.Api.Controllers
     public abstract class BaseController : Controller
     {
         private readonly DomainNotificationHandler _notifications;
-        private readonly IMediatorHandler _mediatorHandler;
+        protected readonly IMediatorHandler _mediatorHandler;
 
 
         protected BaseController(INotificationHandler<DomainNotification> notifications,

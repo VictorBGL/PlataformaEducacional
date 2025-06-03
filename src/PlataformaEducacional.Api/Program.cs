@@ -1,4 +1,5 @@
 using PlataformaEducacional.Api.Configurations;
+using PlataformaEducacional.Conteudo.Application.AutoMapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +13,7 @@ builder.Configuration
 builder.Services.AddApiConfig(builder.Configuration);
 builder.Services.AddDependencyConfig();
 builder.Services.AddIdentityConfig(builder.Configuration);
-//builder.Services.AddAutoMapper(typeof(AutoMapperConfig));
+builder.Services.AddAutoMapper(typeof(ConteudoMapperConfig));
 
 var app = builder.Build();
 

@@ -17,12 +17,14 @@ namespace PlataformaEducacional.Conteudo.Data
 
         public async Task<IQueryable<Curso>> ObterTodos()
         {
-            return await Task.FromResult(_context.Cursos.AsNoTracking());
+            return await Task.FromResult(_context.Cursos.AsNoTracking().Include(p => p.Aulas));
         }
 
         public async Task<Curso> ObterPorId(Guid id)
         {
-            return await _context.Cursos.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
+            return await _context.Cursos
+                                    .Include(p => p.Aulas)
+                                    .FirstOrDefaultAsync(p => p.Id == id);
         }
 
         public void Adicionar(Curso curso)

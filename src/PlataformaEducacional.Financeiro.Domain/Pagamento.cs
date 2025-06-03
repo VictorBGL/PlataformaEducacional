@@ -4,9 +4,13 @@ namespace PlataformaEducacional.Financeiro.Domain
 {
     public class Pagamento : EntityBase, IAggregateRoot
     {
-        public Pagamento(Guid alunoId, Guid matriculaId, decimal valor, DadosCartao dadosCartao)
+        public Pagamento()
         {
-            AlunoId = alunoId;
+
+        }
+
+        public Pagamento(Guid matriculaId, decimal valor, DadosCartao dadosCartao)
+        {
             MatriculaId = matriculaId;
             Valor = valor;
             Data = DateTime.UtcNow;
@@ -14,7 +18,6 @@ namespace PlataformaEducacional.Financeiro.Domain
             Status = StatusPagamento.Pendente();
         }
 
-        public Guid AlunoId { get; private set; }
         public Guid MatriculaId { get; private set; }
 
         public decimal Valor { get; private set; }

@@ -8,6 +8,13 @@ using PlataformaEducacional.Financeiro.Data.Repository;
 using PlataformaEducacional.Financeiro.Domain;
 using PlataformaEducacional.Conteudo.Domain;
 using PlataformaEducacional.Conteudo.Data;
+using PlataformaEducacional.Conteudo.Application.Interfaces;
+using PlataformaEducacional.Conteudo.Application.Services;
+using PlataformaEducacional.Conteudo.Domain.Interfaces;
+using PlataformaEducacional.Conteudo.Domain.Services;
+using PlataformaEducacional.Aluno.Application.Queries;
+using PlataformaEducacional.Aluno.AntiCorruption;
+using PlataformaEducacional.Aluno.Application.Commands;
 
 namespace PlataformaEducacional.Api.Configurations
 {
@@ -17,11 +24,17 @@ namespace PlataformaEducacional.Api.Configurations
         {
             services.AddScoped<IMediatorHandler, MediatorHandler>();
 
+            services.AddScoped<IConteudoAppService, ConteudoAppService>();
+            services.AddScoped<ICursoService, CursoService>();
+            services.AddScoped<ICursoRepository, CursoRepository>();
+
+            services.AddScoped<IAlunoQueries, AlunoQueries>();
+            services.AddScoped<IConteudoService, ConteudoService>();
             services.AddScoped<IAlunoRepository, AlunoRepository>();
 
-            //services.AddScoped<IConteudoAppService, ConteudoAppService>();
-            //services.AddScoped<IConteudoService, ConteudoService>();
-            services.AddScoped<ICursoRepository, CursoRepository>();
+            services.AddScoped<IRequestHandler<FinalizarAulaCommand, bool>, AlunoCommandHandler>();
+            services.AddScoped<IRequestHandler<EmitirCertificadoCommand, bool>, AlunoCommandHandler>();
+            services.AddScoped<IRequestHandler<RealizarMatriculaCommand, bool>, AlunoCommandHandler>();
 
             services.AddScoped<IFinanceiroRepository, FinanceiroRepository>();
 

@@ -8,18 +8,9 @@ namespace PlataformaEducacional.Aluno.Data
     {
         public void Configure(EntityTypeBuilder<PlataformaEducacional.Aluno.Domain.Aluno> builder)
         {
+            builder.ToTable("Alunos");
+
             builder.HasKey(c => c.Id);
-
-            builder.OwnsOne(c => c.Historico, cm =>
-            {
-                //cm.Property(c => c.Descricao)
-                //    .HasColumnName("Descricao")
-                //    .HasColumnType("varchar(500)");
-
-                //cm.Property(c => c.MaterialComplementarUrl)
-                //    .HasColumnName("MaterialComplementarUrl")
-                //    .HasColumnType("varchar(250)");
-            });
 
             builder.HasMany(c => c.Certificados)
                 .WithOne(c => c.Aluno)
@@ -28,8 +19,6 @@ namespace PlataformaEducacional.Aluno.Data
             builder.HasMany(c => c.Matriculas)
                 .WithOne(c => c.Aluno)
                 .HasForeignKey(c => c.AlunoId);
-
-            builder.ToTable("Alunos");
         }
     }
 }

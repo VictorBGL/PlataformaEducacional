@@ -9,10 +9,10 @@ namespace PlataformaEducacional.Conteudo.Application.AutoMapper
         public ConteudoMapperConfig()
         {
             CreateMap<Curso, CursoResponseModel>();
-            //CreateMap<CursoViewModel, Curso>();
+            CreateMap<CursoModel, Curso>();
 
             CreateMap<Aula, AulaResponseModel>();
-            //CreateMap<AulaViewModel, Aula>().ForMember(p => p.Id, opt => opt.Ignore());
+            CreateMap<AulaModel, Aula>().ForMember(p => p.Id, opt => opt.Ignore());
 
             CreateMap<ConteudoProgramaticoModel, ConteudoProgramatico>()
                 .ReverseMap();

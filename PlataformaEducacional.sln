@@ -35,6 +35,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlataformaEducacional.Aluno
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlataformaEducacional.Conteudo.Application", "src\PlataformaEducacional.Conteudo.Application\PlataformaEducacional.Conteudo.Application.csproj", "{3179B68F-A8C5-4088-B7F8-9729777815A5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlataformaEducacional.Aluno.AntiCorruption", "src\PlataformaEducacional.Aluno.AntiCorruption\PlataformaEducacional.Aluno.AntiCorruption.csproj", "{3653CA9A-64ED-4287-B553-D5CF480CC4D5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +83,10 @@ Global
 		{3179B68F-A8C5-4088-B7F8-9729777815A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3179B68F-A8C5-4088-B7F8-9729777815A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3179B68F-A8C5-4088-B7F8-9729777815A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3653CA9A-64ED-4287-B553-D5CF480CC4D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3653CA9A-64ED-4287-B553-D5CF480CC4D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3653CA9A-64ED-4287-B553-D5CF480CC4D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3653CA9A-64ED-4287-B553-D5CF480CC4D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -100,6 +106,7 @@ Global
 		{D3F642D3-A138-4B18-88DD-FFBF2F861952} = {E3486E49-4E8D-4786-81D8-E8F959CB55EC}
 		{221960A4-DA2A-42AC-A40A-457498EE3B22} = {163D39A7-3650-4DF3-8A1B-7EA568A00360}
 		{3179B68F-A8C5-4088-B7F8-9729777815A5} = {4C6241B8-5BF5-4075-8AC5-2171810D62A2}
+		{3653CA9A-64ED-4287-B553-D5CF480CC4D5} = {163D39A7-3650-4DF3-8A1B-7EA568A00360}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C9C53623-F85D-486E-8073-C2A8762CBAAA}

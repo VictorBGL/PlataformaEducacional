@@ -13,14 +13,14 @@ namespace PlataformaEducacional.Api.Configurations
         {
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddErrorDescriber<MensagensIdentityPortugues>()
-                .AddEntityFrameworkStores<DbContext>()
+                .AddEntityFrameworkStores<Context>()
                 .AddDefaultTokenProviders();
 
             var appSettingsSection = configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
 
             var appSettings = appSettingsSection.Get<AppSettings>();
-            var key = Encoding.ASCII.GetBytes(appSettings.Secret);
+            var key = Encoding.ASCII.GetBytes(appSettings.Secret ?? string.Empty);
 
             services.AddAuthentication(x =>
             {
