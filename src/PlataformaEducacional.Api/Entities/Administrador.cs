@@ -4,17 +4,17 @@
     {
         protected Administrador(){}
 
-        public Administrador(Guid id, string nome, string email, bool ativo)
+        public Administrador(Guid id, string nome, string email, DateTime dataNascimento)
         {
             Id = id;
             Nome = nome;
             Email = email;
-            Ativo = ativo;
+            DataNascimento = dataNascimento;
         }
 
         public Guid Id { get; set; }
         public string Nome { get; set; }
         public string Email { get; set; }
-        public bool Ativo { get; set; }
+        public DateTime DataNascimento { get; set; }
     }
 }

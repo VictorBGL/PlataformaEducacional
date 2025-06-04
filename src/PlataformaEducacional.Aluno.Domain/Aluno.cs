@@ -55,10 +55,5 @@ namespace PlataformaEducacional.Aluno.Domain
 
             Certificados.Add(certificado);
         }
-
-        //public void RegistrarProgresso(string aulaTitulo, DateTime data)
-        //{
-        //    Historico.AdicionarRegistro(aulaTitulo, data);
-        //}
     }
 }

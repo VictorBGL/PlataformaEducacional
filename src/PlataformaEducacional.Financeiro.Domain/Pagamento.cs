@@ -9,16 +9,21 @@ namespace PlataformaEducacional.Financeiro.Domain
 
         }
 
-        public Pagamento(Guid matriculaId, decimal valor, DadosCartao dadosCartao)
+        public Pagamento(Guid alunoId, Guid cursoId, decimal valor, DadosCartao dadosCartao)
         {
-            MatriculaId = matriculaId;
+            AlunoId = alunoId;
+            CursoId = cursoId;
+
             Valor = valor;
-            Data = DateTime.UtcNow;
+            Data = DateTime.Now;
             DadosCartao = dadosCartao;
             Status = StatusPagamento.Pendente();
+
+            Validar();
         }
 
-        public Guid MatriculaId { get; private set; }
+        public Guid AlunoId { get; private set; }
+        public Guid CursoId { get; private set; }
 
         public decimal Valor { get; private set; }
         public DateTime Data { get; private set; }
@@ -28,7 +33,16 @@ namespace PlataformaEducacional.Financeiro.Domain
 
         public void Validar()
         {
+            Validacoes.ValidarSeNulo(Valor, "O campo Valor do pagamento não pode ser nulo");
             Validacoes.ValidarSeNulo(Data, "O campo Data do pagamento não pode ser nulo");
+        }
+
+        public bool CartaoValido(string numeroCartao)
+        {
+            if (DadosCartao.NumeroMascarado == "9999999999999999" && DadosCartao.CvvCartao == "123")
+                return true;
+
+            return false;
         }
 
         public void ConfirmarPagamento()

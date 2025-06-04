@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PlataformaEducacional.Aluno.Domain;
 using PlataformaEducacional.Core.Data;
+using PlataformaEducacional.Core.Messages;
 
 namespace PlataformaEducacional.Aluno.Data
 {
@@ -12,6 +13,7 @@ namespace PlataformaEducacional.Aluno.Data
         public DbSet<PlataformaEducacional.Aluno.Domain.Aluno> Alunos { get; set; }
         public DbSet<Certificado> Certificados { get; set; }
         public DbSet<Matricula> Matriculas { get; set; }
+        public DbSet<AulaFinalizada> AulasFinalizadas { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -20,6 +22,8 @@ namespace PlataformaEducacional.Aluno.Data
             {
                 property.SetColumnType("varchar(100)");
             }
+
+            modelBuilder.Ignore<Event>();
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AlunoContext).Assembly);
         }

@@ -40,7 +40,7 @@ namespace PlataformaEducacional.Api.Configurations
 
             services.AddEndpointsApiExplorer();
             services.AddSwaggerConfig();
-            //services.AddAutoMapper(typeof(Program));
+            services.AddAutoMapper(typeof(Program));
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<Program>());
         }
 

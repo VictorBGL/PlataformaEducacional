@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PlataformaEducacional.Conteudo.Domain;
 using PlataformaEducacional.Core.Data;
+using PlataformaEducacional.Core.Messages;
 
 namespace PlataformaEducacional.Conteudo.Data
 {
@@ -20,7 +21,7 @@ namespace PlataformaEducacional.Conteudo.Data
                 property.SetColumnType("varchar(100)");
             }
 
-            //modelBuilder.Ignore<Event>();
+            modelBuilder.Ignore<Event>();
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ConteudoContext).Assembly);
         }

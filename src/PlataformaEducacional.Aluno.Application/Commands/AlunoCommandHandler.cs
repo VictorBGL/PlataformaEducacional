@@ -10,6 +10,7 @@ using PlataformaEducacional.Core.Messages.CommonMessages.Notifications;
 namespace PlataformaEducacional.Aluno.Application.Commands
 {
     public class AlunoCommandHandler :
+        IRequestHandler<CadastrarAlunoCommand, bool>,
         IRequestHandler<RealizarMatriculaCommand, bool>,
         IRequestHandler<FinalizarAulaCommand, bool>,
         IRequestHandler<EmitirCertificadoCommand, bool>
@@ -23,6 +24,19 @@ namespace PlataformaEducacional.Aluno.Application.Commands
             _mediatorHandler = mediatorHandler;
             _alunoRepository = alunoRepository;
             _conteudoService = conteudoService;
+        }
+
+        public async Task<bool> Handle(CadastrarAlunoCommand request, CancellationToken cancellationToken)
+        {
+            if (!ValidarComando(request))
+                return false;
+
+            var aluno = new Domain.Aluno(request.Id, request.Nome, request.Email, request.DataNascimento);
+
+            _alunoRepository.Adicionar(aluno);
+            await _alunoRepository.UnitOfWork.Commit();
+
+            return true;
         }
 
         public async Task<bool> Handle(RealizarMatriculaCommand request, CancellationToken cancellationToken)

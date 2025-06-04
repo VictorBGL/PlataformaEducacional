@@ -4,6 +4,6 @@ namespace PlataformaEducacional.Financeiro.Domain
 {
     public interface IFinanceiroRepository : IRepository<Pagamento>
     {
-        void AdicionarPagamento(Pagamento pagamento);
+        void Adicionar(Pagamento pagamento);
     }
 }

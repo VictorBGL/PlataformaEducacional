@@ -14,7 +14,7 @@ namespace PlataformaEducacional.Conteudo.Data
                 .WithMany(c => c.Aulas)
                 .HasForeignKey(c => c.CursoId);
 
-            builder.ToTable("Aulas");
+            builder.ToTable("Aula");
         }
     }
 }

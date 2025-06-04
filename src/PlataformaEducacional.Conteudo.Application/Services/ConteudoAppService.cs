@@ -3,7 +3,6 @@ using PlataformaEducacional.Conteudo.Application.Interfaces;
 using PlataformaEducacional.Conteudo.Application.Models;
 using PlataformaEducacional.Conteudo.Domain;
 using PlataformaEducacional.Conteudo.Domain.Interfaces;
-using PlataformaEducacional.Conteudo.Domain.Services;
 using PlataformaEducacional.Core.DomainObjects;
 
 namespace PlataformaEducacional.Conteudo.Application.Services

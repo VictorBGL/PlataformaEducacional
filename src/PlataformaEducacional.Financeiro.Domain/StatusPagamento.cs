@@ -1,4 +1,6 @@
-﻿namespace PlataformaEducacional.Financeiro.Domain
+﻿using PlataformaEducacional.Core.Enums;
+
+namespace PlataformaEducacional.Financeiro.Domain
 {
     public class StatusPagamento
     {
@@ -14,8 +16,8 @@
         public string? MotivoRejeicao { get; private set; }
 
 
-        public static StatusPagamento Pendente() => new("PENDENTE");
-        public static StatusPagamento Confirmado() => new("CONFIRMADO");
-        public static StatusPagamento Rejeitado(string motivo) => new("REJEITADO", motivo);
+        public static StatusPagamento Pendente() => new(nameof(StatusPagamentoEnum.PENDENTE));
+        public static StatusPagamento Confirmado() => new(nameof(StatusPagamentoEnum.CONFIRMADO));
+        public static StatusPagamento Rejeitado(string motivo) => new(nameof(StatusPagamentoEnum.REJEITADO), motivo);
     }
 }

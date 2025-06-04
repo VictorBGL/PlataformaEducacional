@@ -15,6 +15,9 @@ using PlataformaEducacional.Conteudo.Domain.Services;
 using PlataformaEducacional.Aluno.Application.Queries;
 using PlataformaEducacional.Aluno.AntiCorruption;
 using PlataformaEducacional.Aluno.Application.Commands;
+using PlataformaEducacional.Financeiro.Apllication.Commands;
+using PlataformaEducacional.Aluno.Application.Events;
+using PlataformaEducacional.Core.Messages.CommonMessages.IntegrationEvents;
 
 namespace PlataformaEducacional.Api.Configurations
 {
@@ -31,12 +34,14 @@ namespace PlataformaEducacional.Api.Configurations
             services.AddScoped<IAlunoQueries, AlunoQueries>();
             services.AddScoped<IConteudoService, ConteudoService>();
             services.AddScoped<IAlunoRepository, AlunoRepository>();
-
+            services.AddScoped<IRequestHandler<CadastrarAlunoCommand, bool>, AlunoCommandHandler>();
             services.AddScoped<IRequestHandler<FinalizarAulaCommand, bool>, AlunoCommandHandler>();
             services.AddScoped<IRequestHandler<EmitirCertificadoCommand, bool>, AlunoCommandHandler>();
             services.AddScoped<IRequestHandler<RealizarMatriculaCommand, bool>, AlunoCommandHandler>();
+            services.AddScoped<INotificationHandler<PagamentoMatriculaEvent>, AlunoIntegrationEventHandler>();
 
             services.AddScoped<IFinanceiroRepository, FinanceiroRepository>();
+            services.AddScoped<IRequestHandler<PagamentoMatriculaCommand, bool>, FinanceiroCommandHandler>();
 
             services.AddScoped<INotificationHandler<DomainNotification>, DomainNotificationHandler>();
 

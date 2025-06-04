@@ -39,8 +39,8 @@ namespace PlataformaEducacional.Api.Configurations
             var alunoContext = scope.ServiceProvider.GetRequiredService<AlunoContext>();
             await alunoContext.Database.MigrateAsync();
 
-            //var financeiroContext = scope.ServiceProvider.GetRequiredService<FinanceiroContext>();
-            //await financeiroContext.Database.MigrateAsync();
+            var financeiroContext = scope.ServiceProvider.GetRequiredService<FinanceiroContext>();
+            await financeiroContext.Database.MigrateAsync();
 
 
             await EnsureSeedProducts(context, alunoContext);
@@ -64,7 +64,7 @@ namespace PlataformaEducacional.Api.Configurations
                 NormalizedEmail = "ADMIN@ADMIN.COM",
                 AccessFailedCount = 0,
                 LockoutEnabled = false,
-                PasswordHash = "AQAAAAIAAYagAAAAEJfnkXwMwUa7tr3NITeoGPnAjCbvkd5y2TdQ/wglcpCinkNGSF30kpgTIH3WsCTCkg==",
+                PasswordHash = "AQAAAAIAAYagAAAAEJfnkXwMwUa7tr3NITeoGPnAjCbvkd5y2TdQ/wglcpCinkNGSF30kpgTIH3WsCTCkg==", // Teste@123
                 TwoFactorEnabled = false,
                 ConcurrencyStamp = Guid.NewGuid().ToString(),
                 EmailConfirmed = true,
@@ -97,7 +97,9 @@ namespace PlataformaEducacional.Api.Configurations
 
             await context.SaveChangesAsync();
 
-            var admin = new Administrador(userId, "Administrador", "admin@admin.com", true);
+            DateTime dataNascimentoAdmin = new DateTime(2000, 1, 1);
+
+            var admin = new Administrador(userId, "Administrador", "admin@admin.com", dataNascimentoAdmin);
 
             context.Set<Administrador>().Add(admin);
             await context.SaveChangesAsync();
@@ -111,13 +113,13 @@ namespace PlataformaEducacional.Api.Configurations
             await context.Users.AddAsync(new IdentityUser
             {
                 Id = userAlunoId.ToString(),
-                UserName = "admin@admin.com",
-                NormalizedUserName = "ADMIN@ADMIN.COM",
-                Email = "admin@admin.com",
-                NormalizedEmail = "ADMIN@ADMIN.COM",
+                UserName = "aluno@aluno.com",
+                NormalizedUserName = "ALUNO@ALUNO.COM",
+                Email = "aluno@aluno.com",
+                NormalizedEmail = "ALUNO@ALUNO.COM",
                 AccessFailedCount = 0,
                 LockoutEnabled = false,
-                PasswordHash = "AQAAAAIAAYagAAAAEJfnkXwMwUa7tr3NITeoGPnAjCbvkd5y2TdQ/wglcpCinkNGSF30kpgTIH3WsCTCkg==",
+                PasswordHash = "AQAAAAIAAYagAAAAEJfnkXwMwUa7tr3NITeoGPnAjCbvkd5y2TdQ/wglcpCinkNGSF30kpgTIH3WsCTCkg==",  // Teste@123
                 TwoFactorEnabled = false,
                 ConcurrencyStamp = Guid.NewGuid().ToString(),
                 EmailConfirmed = true,
@@ -146,7 +148,7 @@ namespace PlataformaEducacional.Api.Configurations
 
             DateTime dataNascimentoAluno = new DateTime(2000, 1, 1);
 
-            var aluno = new Aluno.Domain.Aluno(userAlunoId, "Administrador", "admin@admin.com", dataNascimentoAluno);
+            var aluno = new Aluno.Domain.Aluno(userAlunoId, "Aluno", "aluno@aluno.com", dataNascimentoAluno);
 
             await alunoContext.Alunos.AddAsync(aluno);
             await context.SaveChangesAsync();

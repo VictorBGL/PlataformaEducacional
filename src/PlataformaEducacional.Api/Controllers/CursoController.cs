@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using PlataformaEducacional.Conteudo.Application.Interfaces;
 using PlataformaEducacional.Conteudo.Application.Models;
 using PlataformaEducacional.Core.Communication;
+using PlataformaEducacional.Core.Enums;
 using PlataformaEducacional.Core.Messages.CommonMessages.Notifications;
 
 namespace PlataformaEducacional.Api.Controllers
@@ -48,7 +49,7 @@ namespace PlataformaEducacional.Api.Controllers
         /// <summary>
         /// Inserir um novo curso
         /// </summary>
-        //[Authorize(Roles = nameof(PerfilUsuarioEnum.ADM))]
+        [Authorize(Roles = nameof(RoleUsuarioEnum.ADMINISTRADOR))]
         [HttpPost]
         public async Task<IActionResult> Adicionar(CursoModel model)
         {
@@ -59,7 +60,7 @@ namespace PlataformaEducacional.Api.Controllers
         /// <summary>
         /// Ativa ou inativa um curso
         /// </summary>
-        //[Authorize(Roles = nameof(PerfilUsuarioEnum.ADM))]
+        [Authorize(Roles = nameof(RoleUsuarioEnum.ADMINISTRADOR))]
         [HttpPost("{id}/status")]
         public async Task<IActionResult> AlterarStatus([FromRoute] Guid id, [FromBody] CursoStatusModel model)
         {
@@ -70,7 +71,7 @@ namespace PlataformaEducacional.Api.Controllers
         /// <summary>
         /// Atualizar um curso
         /// </summary>
-        //[Authorize(Roles = nameof(PerfilUsuarioEnum.ADM))]
+        [Authorize(Roles = nameof(RoleUsuarioEnum.ADMINISTRADOR))]
         [HttpPut("{id}")]
         public async Task<IActionResult> Atualizar([FromRoute] Guid id, [FromBody] CursoModel model)
         {

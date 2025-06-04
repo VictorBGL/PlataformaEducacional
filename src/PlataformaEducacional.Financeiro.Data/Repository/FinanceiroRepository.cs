@@ -14,7 +14,7 @@ namespace PlataformaEducacional.Financeiro.Data.Repository
 
         public IUnitOfWork UnitOfWork => _context;
 
-        public void AdicionarPagamento(Pagamento pagamento)
+        public void Adicionar(Pagamento pagamento)
         {
             _context.Add(pagamento);
         }

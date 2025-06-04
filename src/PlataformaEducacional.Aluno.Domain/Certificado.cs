@@ -10,7 +10,6 @@ namespace PlataformaEducacional.Aluno.Domain
             DataEmissao = DateTime.Now;
         }
 
-
         public Guid AlunoId { get; private set; }
         public string NomeCurso { get; private set; }
         public DateTime DataEmissao { get; private set; }

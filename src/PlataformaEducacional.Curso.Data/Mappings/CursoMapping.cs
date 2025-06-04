@@ -10,22 +10,13 @@ namespace PlataformaEducacional.Conteudo.Data
         {
             builder.HasKey(c => c.Id);
 
-            builder.Property(c => c.Nome)
-                .IsRequired()
-                .HasColumnType("varchar(250)");
-
             builder.OwnsOne(c => c.Conteudo, cm =>
             {
-                cm.Property(c => c.Descricao)
-                    .HasColumnName("Descricao")
-                    .HasColumnType("varchar(500)");
-
-                cm.Property(c => c.MaterialComplementarUrl)
-                    .HasColumnName("MaterialComplementarUrl")
-                    .HasColumnType("varchar(250)");
+                cm.Property(c => c.Descricao);
+                cm.Property(c => c.MaterialComplementarUrl);
             });
 
-            builder.ToTable("Cursos");
+            builder.ToTable("Curso");
         }
     }
 }

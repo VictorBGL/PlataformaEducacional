@@ -8,7 +8,7 @@ namespace PlataformaEducacional.Aluno.Data
     {
         public void Configure(EntityTypeBuilder<PlataformaEducacional.Aluno.Domain.Aluno> builder)
         {
-            builder.ToTable("Alunos");
+            builder.ToTable("Aluno");
 
             builder.HasKey(c => c.Id);
 

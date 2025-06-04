@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PlataformaEducacional.Core.Data;
+using PlataformaEducacional.Core.Messages;
 using PlataformaEducacional.Financeiro.Domain;
 
 namespace PlataformaEducacional.Financeiro.Data
@@ -13,13 +14,13 @@ namespace PlataformaEducacional.Financeiro.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //foreach (var property in modelBuilder.Model.GetEntityTypes()
-            //    .SelectMany(e => e.GetProperties().Where(p => p.ClrType == typeof(string))))
-            //{
-            //    property.SetColumnType("varchar(100)");
-            //}
+            foreach (var property in modelBuilder.Model.GetEntityTypes()
+                .SelectMany(e => e.GetProperties().Where(p => p.ClrType == typeof(string))))
+            {
+                property.SetColumnType("varchar(100)");
+            }
 
-            //modelBuilder.Ignore<Event>();
+            modelBuilder.Ignore<Event>();
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(FinanceiroContext).Assembly);
         }

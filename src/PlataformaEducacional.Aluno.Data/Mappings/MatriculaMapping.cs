@@ -8,7 +8,7 @@ namespace PlataformaEducacional.Aluno.Data
     {
         public void Configure(EntityTypeBuilder<Matricula> builder)
         {
-            builder.ToTable("Matriculas");
+            builder.ToTable("Matricula");
 
             builder.HasKey(c => c.Id);
 

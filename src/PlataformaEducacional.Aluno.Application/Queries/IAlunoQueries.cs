@@ -1,8 +1,10 @@
-﻿namespace PlataformaEducacional.Aluno.Application.Queries
+﻿using PlataformaEducacional.Aluno.Application.Models;
+
+namespace PlataformaEducacional.Aluno.Application.Queries
 {
     public interface IAlunoQueries
     {
-        Task<IQueryable<Domain.Aluno>> BuscarAlunos();
-        Task<Domain.Aluno> BuscarAluno(Guid id);
+        Task<List<AlunoResponseModel>> FiltrarAlunos(string? nome, bool? existeMatriculaAtiva);
+        Task<AlunoResponseModel> BuscarAluno(Guid id);
     }
 }

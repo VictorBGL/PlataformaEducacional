@@ -2,9 +2,14 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using PlataformaEducacional.Aluno.Application.Commands;
+using PlataformaEducacional.Api.Data;
+using PlataformaEducacional.Api.Entities;
 using PlataformaEducacional.Api.Extensions;
 using PlataformaEducacional.Api.Models;
+using PlataformaEducacional.Api.Models.Auth;
 using PlataformaEducacional.Core.Communication;
+using PlataformaEducacional.Core.Enums;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -20,6 +25,7 @@ namespace PlataformaEducacional.Api.Controllers
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly AppSettings _appSettings;
+        private readonly Context _context;
         private readonly IPasswordHasher<IdentityUser> _passwordHasher;
         private readonly IMediatorHandler _mediatorHandler;
 
@@ -29,7 +35,8 @@ namespace PlataformaEducacional.Api.Controllers
             RoleManager<IdentityRole> roleManager,
             IOptions<AppSettings> appSettings,
             IPasswordHasher<IdentityUser> passwordHasher,
-            IMediatorHandler mediatorHandler)
+            IMediatorHandler mediatorHandler,
+            Context context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -37,14 +44,12 @@ namespace PlataformaEducacional.Api.Controllers
             _appSettings = appSettings.Value;
             _passwordHasher = passwordHasher;
             _mediatorHandler = mediatorHandler;
+            _context = context;
         }
 
         /// <summary>
-        /// Endpoint para login do usuário
+        /// Realizar Login do usuário
         /// </summary>
-        /// <response code="200">Jwt token para acesso</response>
-        /// <response code="400">Conteúdo inválido</response>
-        /// <response code="500">Erro interno</response>
         [HttpPost("login")]
         [ProducesResponseType(typeof(IEnumerable<LoginResponseModel>), 200)]
         [ProducesResponseType(typeof(string), 400)]
@@ -64,6 +69,91 @@ namespace PlataformaEducacional.Api.Controllers
             }
 
             return BadRequest(new { sucesso = false, message = "E-mail ou senha incorretos" });
+        }
+
+        /// <summary>
+        /// Criação de conta para administrador
+        /// </summary>
+        [HttpPost("cadastrar-administrador")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CadastrarAdministrador(NovaContaModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var identityUser = new IdentityUser(model.Email);
+                identityUser.PasswordHash = _passwordHasher.HashPassword(identityUser, model.Senha);
+                identityUser.Email = model.Email;
+
+                var result = await _userManager.CreateAsync(identityUser);
+
+                if (result.Succeeded)
+                {
+                    await CreateRoles();
+                    await _userManager.AddToRoleAsync(identityUser, nameof(RoleUsuarioEnum.ADMINISTRADOR));
+
+                    var admininstrador = new Administrador(Guid.Parse(identityUser.Id), model.Nome, model.Email, model.DataNascimento);
+                    _context.Set<Administrador>().Add(admininstrador);
+                    await _context.SaveChangesAsync();
+
+                    return Ok(new { sucesso = true });
+                }
+
+                var erros = result.Errors.Select(x => x.Description).ToArray();
+                return BadRequest(new { sucesso = false, erros = erros });
+            }
+
+            return BadRequest(new { sucesso = false, erros = ModelState });
+        }
+
+        /// <summary>
+        /// Criação de conta para aluno
+        /// </summary>
+        [HttpPost("cadastrar-aluno")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CadastrarAluno(NovaContaModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var identityUser = new IdentityUser(model.Email);
+                identityUser.PasswordHash = _passwordHasher.HashPassword(identityUser, model.Senha);
+                identityUser.Email = model.Email;
+
+                var result = await _userManager.CreateAsync(identityUser);
+
+                if (result.Succeeded)
+                {
+                    await CreateRoles();
+                    await _userManager.AddToRoleAsync(identityUser, nameof(RoleUsuarioEnum.ALUNO));
+
+                    var command = new CadastrarAlunoCommand(Guid.Parse(identityUser.Id), model.Nome, model.Email, model.DataNascimento);
+                    await _mediatorHandler.EnviarComando(command);
+
+                    return Ok(new { sucesso = true });
+                }
+
+                var erros = result.Errors.Select(x => x.Description).ToArray();
+                return BadRequest(new { sucesso = false, erros = erros });
+            }
+
+            return BadRequest(new { sucesso = false, erros = ModelState });
+        }
+
+        private async Task CreateRoles()
+        {
+            string[] rolesNames =
+            {
+            nameof(RoleUsuarioEnum.ADMINISTRADOR),
+            nameof(RoleUsuarioEnum.ALUNO),
+        };
+
+            foreach (var namesRole in rolesNames)
+            {
+                var roleExist = await _roleManager.RoleExistsAsync(namesRole);
+                if (!roleExist)
+                {
+                    await _roleManager.CreateAsync(new IdentityRole(namesRole));
+                }
+            }
         }
 
         private async Task<LoginResponseModel> GerarJwt(string email, string nomeUsuario)

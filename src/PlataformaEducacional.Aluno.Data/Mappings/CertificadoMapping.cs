@@ -10,7 +10,7 @@ namespace PlataformaEducacional.Aluno.Data
         {
             builder.HasKey(c => c.Id);
 
-            builder.ToTable("Certificados");
+            builder.ToTable("Certificado");
         }
     }
 }
