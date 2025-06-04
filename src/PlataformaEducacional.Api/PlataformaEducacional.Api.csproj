@@ -29,4 +29,8 @@
     <ProjectReference Include="..\PlataformaEducacional.Financeiro.Data\PlataformaEducacional.Financeiro.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\Migrations\" />
+  </ItemGroup>
+
 </Project>
