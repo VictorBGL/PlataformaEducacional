@@ -28,6 +28,7 @@ namespace PlataformaEducacional.Conteudo.Domain
         public void Validar()
         {
             Validacoes.ValidarSeVazio(Nome, "O campo Nome do curso não pode estar vazio");
+            Validacoes.ValidarSeNulo(Ativo, "O campo Status do curso não pode estar nulo");
 
             Conteudo.Validar();
         }
@@ -53,7 +54,7 @@ namespace PlataformaEducacional.Conteudo.Domain
             Aulas.Add(aula);
         }
 
-        public void AlterarAula(Guid aulaId, Aula aula)
+        public void AtualizarAula(Guid aulaId, Aula aula)
         {
             foreach (var aulaDb in Aulas.Where(p => p.Id == aulaId))
             {

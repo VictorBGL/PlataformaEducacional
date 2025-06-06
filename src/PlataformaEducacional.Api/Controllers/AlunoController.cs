@@ -32,7 +32,7 @@ namespace PlataformaEducacional.Api.Controllers
         /// </summary>
         [Authorize(Roles = nameof(RoleUsuarioEnum.ADMINISTRADOR))]
         [ProducesResponseType(typeof(List<AlunoResponseModel>), 200)]
-        [HttpGet]
+        [HttpPost("filtro")]
         public async Task<IActionResult> FiltrarAlunos([FromBody] AlunoFiltroModel filtro)
         {
             var alunos = await _alunoQueries.FiltrarAlunos(filtro.Nome, filtro.ExisteMatriculaAtiva);
@@ -44,7 +44,7 @@ namespace PlataformaEducacional.Api.Controllers
         /// </summary>
         [ProducesResponseType(typeof(AlunoResponseModel), 200)]
         [HttpGet("{id}")]
-        public async Task<IActionResult> BuscarAluno(Guid id)
+        public async Task<IActionResult> BuscarAluno([FromRoute] Guid id)
         {
             return Ok(await _alunoQueries.BuscarAluno(id));
         }
@@ -67,7 +67,7 @@ namespace PlataformaEducacional.Api.Controllers
         /// Finalizar a aula de um curso
         /// </summary>
         [HttpPost("{id}/curso/{cursoId}/aula/{aulaId}/finalizar")]
-        public async Task<IActionResult> ConcluirAula(Guid id, Guid cursoId, Guid aulaId)
+        public async Task<IActionResult> ConcluirAula([FromRoute] Guid id, Guid cursoId, Guid aulaId)
         {
             var command = new FinalizarAulaCommand(id, cursoId, aulaId);
             await _mediatorHandler.EnviarComando(command);
@@ -82,7 +82,7 @@ namespace PlataformaEducacional.Api.Controllers
         /// Emitir certificado de conclusão de curso
         /// </summary>
         [HttpPost("{id}/curso/{cursoId}/certificado")]
-        public async Task<IActionResult> EmitirCertificado(Guid id, Guid cursoId)
+        public async Task<IActionResult> EmitirCertificado([FromRoute] Guid id, Guid cursoId)
         {
             var command = new EmitirCertificadoCommand(cursoId, id);
             await _mediatorHandler.EnviarComando(command);
@@ -96,17 +96,13 @@ namespace PlataformaEducacional.Api.Controllers
         /// <summary>
         /// Buscar Certificados disponiveis
         /// </summary>
-        //[HttpGet("{id}/certificados")]
-        //public async Task<IActionResult> BuscarCertificados(Guid id)
-        //{
-        //    var command = new EmitirCertificadoCommand(cursoId, id);
-        //    await _mediatorHandler.EnviarComando(command);
-
-        //    if (OperacaoValida())
-        //        return Ok("Certifcado emitido com sucesso! Consulte seu perfil para vistualiza-lo!");
-
-        //    return BadRequest(ObterMensagensErro());
-        //}
+        [ProducesResponseType(typeof(List<CertificadoResponseModel>), 200)]
+        [HttpGet("{id}/certificado")]
+        public async Task<IActionResult> BuscarCertificados([FromRoute] Guid id)
+        {
+            var certificados = await _alunoQueries.BuscarCertificadosAluno(id);
+            return Ok(certificados);
+        }
 
         /// <summary>
         /// Realizar pagamento da matrícula em um curso

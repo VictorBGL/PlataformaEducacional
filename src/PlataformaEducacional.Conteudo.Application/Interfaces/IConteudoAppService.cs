@@ -10,7 +10,7 @@ namespace PlataformaEducacional.Conteudo.Application.Interfaces
         Task AlterarStatusCurso(Guid id, bool ativo);
         Task AtualizarCurso(Guid id, CursoModel model);
         Task<CursoResponseModel> AdicionarAula(Guid cursoId, AulaModel model);
-        Task<CursoResponseModel> AlterarAula(Guid cursoId, Guid aulaId, AulaModel model);
+        Task<CursoResponseModel> AtualizarAula(Guid cursoId, Guid aulaId, AulaModel model);
         Task<CursoResponseModel> RemoverAula(Guid cursoId, Guid aulaId);
     }
 }

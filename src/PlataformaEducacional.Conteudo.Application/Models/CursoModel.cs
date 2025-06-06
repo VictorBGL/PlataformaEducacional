@@ -5,6 +5,6 @@
         public string? Nome { get; set; }
         public bool Ativo { get; set; }
 
-        public ConteudoProgramaticoModel? ConteudoProgramatico { get; set; }
+        public ConteudoProgramaticoModel? Conteudo { get; set; }
     }
 }

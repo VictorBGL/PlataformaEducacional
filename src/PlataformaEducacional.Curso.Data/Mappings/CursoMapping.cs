@@ -13,7 +13,7 @@ namespace PlataformaEducacional.Conteudo.Data
             builder.OwnsOne(c => c.Conteudo, cm =>
             {
                 cm.Property(c => c.Descricao);
-                cm.Property(c => c.MaterialComplementarUrl);
+                cm.Property(c => c.MaterialComplementarUrl).IsRequired(false);
             });
 
             builder.ToTable("Curso");

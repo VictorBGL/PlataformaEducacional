@@ -5,7 +5,7 @@ namespace PlataformaEducacional.Conteudo.Domain
     public class ConteudoProgramatico
     {
         public string Descricao { get; private set; }
-        public string MaterialComplementarUrl { get; private set; }
+        public string? MaterialComplementarUrl { get; private set; }
         public string CargaHoraria { get; private set; }
 
         public ConteudoProgramatico(string descricao, string materialComplementarUrl, string cargaHoraria)

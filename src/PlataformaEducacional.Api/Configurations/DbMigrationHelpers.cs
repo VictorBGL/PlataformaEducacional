@@ -4,6 +4,7 @@ using PlataformaEducacional.Aluno.Data;
 using PlataformaEducacional.Api.Data;
 using PlataformaEducacional.Api.Entities;
 using PlataformaEducacional.Conteudo.Data;
+using PlataformaEducacional.Core.Enums;
 using PlataformaEducacional.Financeiro.Data;
 using System;
 
@@ -81,7 +82,7 @@ namespace PlataformaEducacional.Api.Configurations
             await context.Roles.AddAsync(new IdentityRole
             {
                 Id = roleId,
-                Name = "Admin"
+                Name = nameof(RoleUsuarioEnum.ADMINISTRADOR)
             });
 
             await context.SaveChangesAsync();
@@ -133,7 +134,7 @@ namespace PlataformaEducacional.Api.Configurations
             await context.Roles.AddAsync(new IdentityRole
             {
                 Id = roleAlunoId,
-                Name = "Aluno"
+                Name = nameof(RoleUsuarioEnum.ALUNO)
             });
 
             await context.SaveChangesAsync();

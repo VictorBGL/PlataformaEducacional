@@ -8,7 +8,7 @@
         Task AlterarStatusCurso(Guid id, bool ativo);
         Task AtualizarCurso(Guid id, Curso curso);
         Task<bool> AdicionarAula(Guid cursoId, Aula aula);
-        Task<bool> AlterarAula(Guid cursoId, Guid aulaId, Aula aula);
+        Task<bool> AtualizarAula(Guid cursoId, Guid aulaId, Aula aula);
         Task<bool> RemoverAula(Guid cursoId, Guid aulaId);
     }
 }

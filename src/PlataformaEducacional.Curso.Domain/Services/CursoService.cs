@@ -80,13 +80,13 @@ namespace PlataformaEducacional.Conteudo.Domain.Services
             return await _cursoRepository.UnitOfWork.Commit();
         }
 
-        public async Task<bool> AlterarAula(Guid cursoId, Guid aulaId, Aula aula)
+        public async Task<bool> AtualizarAula(Guid cursoId, Guid aulaId, Aula aula)
         {
             var curso = await _cursoRepository.ObterPorId(cursoId);
             if (curso == null)
                 throw new DomainException("Curso não encontrado");
 
-            curso.AlterarAula(aulaId, aula);
+            curso.AtualizarAula(aulaId, aula);
 
             _cursoRepository.Atualizar(curso);
 

@@ -6,5 +6,6 @@ namespace PlataformaEducacional.Aluno.Application.Queries
     {
         Task<List<AlunoResponseModel>> FiltrarAlunos(string? nome, bool? existeMatriculaAtiva);
         Task<AlunoResponseModel> BuscarAluno(Guid id);
+        Task<List<CertificadoResponseModel>> BuscarCertificadosAluno(Guid alunoId);
     }
 }

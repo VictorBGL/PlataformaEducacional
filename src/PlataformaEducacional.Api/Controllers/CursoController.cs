@@ -78,5 +78,41 @@ namespace PlataformaEducacional.Api.Controllers
             await _conteudoAppService.AtualizarCurso(id, model);
             return Ok();
         }
+
+        /// <summary>
+        /// Adiciona uma aula ao curso
+        /// </summary>
+        [Authorize(Roles = nameof(RoleUsuarioEnum.ADMINISTRADOR))]
+        [HttpPost("{id}/aula")]
+        [ProducesResponseType(typeof(List<CursoResponseModel>), 200)]
+        public async Task<IActionResult> AdicionarAula(Guid id, AulaModel aula)
+        {
+            var curso = await _conteudoAppService.AdicionarAula(id, aula);
+            return Ok(curso);
+        }
+
+        /// <summary>
+        /// Atualiza uma aula do curso
+        /// </summary>
+        [Authorize(Roles = nameof(RoleUsuarioEnum.ADMINISTRADOR))]
+        [HttpPut("{id}/aula/{aulaId}")]
+        [ProducesResponseType(typeof(List<CursoResponseModel>), 200)]
+        public async Task<IActionResult> AtualizarAula(Guid id, Guid aulaId, AulaModel aula)
+        {
+            var curso = await _conteudoAppService.AtualizarAula(id, aulaId, aula);
+            return Ok(curso);
+        }
+
+        /// <summary>
+        /// Remove uma aula do curso
+        /// </summary>
+        [Authorize(Roles = nameof(RoleUsuarioEnum.ADMINISTRADOR))]
+        [HttpDelete("{id}/aula/{aulaId}")]
+        [ProducesResponseType(typeof(List<CursoResponseModel>), 200)]
+        public async Task<IActionResult> RemoverAula(Guid id, Guid aulaId)
+        {
+            var curso = await _conteudoAppService.RemoverAula(id, aulaId);
+            return Ok(curso);
+        }
     }
 }

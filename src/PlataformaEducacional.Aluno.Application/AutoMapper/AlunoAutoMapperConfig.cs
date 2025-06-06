@@ -10,6 +10,8 @@ namespace PlataformaEducacional.Aluno.Application.AutoMapper
         {
             CreateMap<Domain.Aluno, AlunoResponseModel>();
 
+            CreateMap<Certificado, CertificadoResponseModel>();
+
             CreateMap<Matricula, MatriculaResponseModel>()
                 .ForMember(d => d.StatusMatricula, o => o.MapFrom(s => s.Status.ToString()));
 

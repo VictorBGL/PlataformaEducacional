@@ -39,5 +39,17 @@ namespace PlataformaEducacional.Aluno.Application.Queries
         {
             return _mapper.Map<AlunoResponseModel>(await _alunoRepository.ObterPorId(alunoId));
         }
+
+        public async Task<List<CertificadoResponseModel>> BuscarCertificadosAluno(Guid alunoId)
+        {
+            var aluno = await _alunoRepository.ObterPorId(alunoId);
+
+            if (aluno == null || aluno.Certificados == null || !aluno.Certificados.Any())
+            {
+                return new List<CertificadoResponseModel>();
+            }
+
+            return _mapper.Map<List<CertificadoResponseModel>>(aluno.Certificados.ToList());
+        }
     }
 }

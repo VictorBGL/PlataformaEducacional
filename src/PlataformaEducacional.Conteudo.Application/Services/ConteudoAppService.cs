@@ -51,9 +51,9 @@ namespace PlataformaEducacional.Conteudo.Application.Services
             return _mapper.Map<CursoResponseModel>(await _cursoService.BuscarCurso(cursoId));
         }
 
-        public async Task<CursoResponseModel> AlterarAula(Guid cursoId, Guid aulaId, AulaModel model)
+        public async Task<CursoResponseModel> AtualizarAula(Guid cursoId, Guid aulaId, AulaModel model)
         {
-            if (!(await _cursoService.AlterarAula(cursoId, aulaId, _mapper.Map<Aula>(model))))
+            if (!(await _cursoService.AtualizarAula(cursoId, aulaId, _mapper.Map<Aula>(model))))
                 throw new DomainException("Falha ao alterar aula");
 
             return _mapper.Map<CursoResponseModel>(await _cursoService.BuscarCurso(cursoId));
