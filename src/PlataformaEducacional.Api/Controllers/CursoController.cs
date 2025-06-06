@@ -27,7 +27,7 @@ namespace PlataformaEducacional.Api.Controllers
         /// Filtrar cursos
         /// </summary>
         [ProducesResponseType(typeof(List<CursoResponseModel>), 200)]
-        [HttpGet]
+        [HttpPost("filtro")]
         public async Task<IActionResult> FiltrarCursos([FromBody] CursoFiltroModel filtro)
         {
             var cursos = await _conteudoAppService.FiltrarCursos(filtro.Ativo, filtro.Nome);
@@ -51,7 +51,7 @@ namespace PlataformaEducacional.Api.Controllers
         /// </summary>
         [Authorize(Roles = nameof(RoleUsuarioEnum.ADMINISTRADOR))]
         [HttpPost]
-        public async Task<IActionResult> Adicionar(CursoModel model)
+        public async Task<IActionResult> Adicionar([FromBody] CursoModel model)
         {
             await _conteudoAppService.AdicionarCurso(model);
             return Ok();
