@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PlataformaEducacional.Conteudo.Data;
 
@@ -10,9 +11,11 @@ using PlataformaEducacional.Conteudo.Data;
 namespace PlataformaEducacional.Conteudo.Data.Migrations
 {
     [DbContext(typeof(ConteudoContext))]
-    partial class ConteudoContextModelSnapshot : ModelSnapshot
+    [Migration("20250606213343_CampoMaterialUrlNulo")]
+    partial class CampoMaterialUrlNulo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.5");
