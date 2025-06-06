@@ -6,6 +6,6 @@
         public string NumeroCartao { get; set; }
         public DateTime Validade { get; set; }
         public decimal ValorCurso { get; set; }
-        public string CvvCartao { get; private set; }
+        public string CvvCartao { get; set; }
     }
 }

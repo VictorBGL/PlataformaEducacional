@@ -15,7 +15,8 @@ namespace PlataformaEducacional.Aluno.Application.AutoMapper
             CreateMap<Matricula, MatriculaResponseModel>()
                 .ForMember(d => d.StatusMatricula, o => o.MapFrom(s => s.Status.ToString()));
 
-            CreateMap<HistoricoAprendizadoModel, HistoricoAprendizado>();
+            CreateMap<HistoricoAprendizadoModel, HistoricoAprendizado>()
+                .ReverseMap();
         }
     }
 }

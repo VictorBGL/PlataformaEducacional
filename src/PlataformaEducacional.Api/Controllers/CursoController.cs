@@ -85,7 +85,7 @@ namespace PlataformaEducacional.Api.Controllers
         [Authorize(Roles = nameof(RoleUsuarioEnum.ADMINISTRADOR))]
         [HttpPost("{id}/aula")]
         [ProducesResponseType(typeof(List<CursoResponseModel>), 200)]
-        public async Task<IActionResult> AdicionarAula(Guid id, AulaModel aula)
+        public async Task<IActionResult> AdicionarAula([FromRoute] Guid id, [FromBody] AulaModel aula)
         {
             var curso = await _conteudoAppService.AdicionarAula(id, aula);
             return Ok(curso);
@@ -97,7 +97,7 @@ namespace PlataformaEducacional.Api.Controllers
         [Authorize(Roles = nameof(RoleUsuarioEnum.ADMINISTRADOR))]
         [HttpPut("{id}/aula/{aulaId}")]
         [ProducesResponseType(typeof(List<CursoResponseModel>), 200)]
-        public async Task<IActionResult> AtualizarAula(Guid id, Guid aulaId, AulaModel aula)
+        public async Task<IActionResult> AtualizarAula([FromRoute] Guid id, Guid aulaId, [FromBody] AulaModel aula)
         {
             var curso = await _conteudoAppService.AtualizarAula(id, aulaId, aula);
             return Ok(curso);
@@ -109,7 +109,7 @@ namespace PlataformaEducacional.Api.Controllers
         [Authorize(Roles = nameof(RoleUsuarioEnum.ADMINISTRADOR))]
         [HttpDelete("{id}/aula/{aulaId}")]
         [ProducesResponseType(typeof(List<CursoResponseModel>), 200)]
-        public async Task<IActionResult> RemoverAula(Guid id, Guid aulaId)
+        public async Task<IActionResult> RemoverAula([FromRoute] Guid id, Guid aulaId)
         {
             var curso = await _conteudoAppService.RemoverAula(id, aulaId);
             return Ok(curso);

@@ -6,7 +6,7 @@ namespace PlataformaEducacional.Conteudo.Application.Models
     {
         public string? Titulo { get; set; }
         public string? Duracao { get; set; }
-        public Guid CursoId { get; private set; }
-        public bool Ativo { get; private set; }
+        public Guid CursoId { get; set; }
+        public bool Ativo { get; set; }
     }
 }

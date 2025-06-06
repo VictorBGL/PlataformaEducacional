@@ -97,7 +97,7 @@ namespace PlataformaEducacional.Api.Controllers
         /// Buscar Certificados disponiveis
         /// </summary>
         [ProducesResponseType(typeof(List<CertificadoResponseModel>), 200)]
-        [HttpGet("{id}/certificado")]
+        [HttpGet("{id}/certificados")]
         public async Task<IActionResult> BuscarCertificados([FromRoute] Guid id)
         {
             var certificados = await _alunoQueries.BuscarCertificadosAluno(id);

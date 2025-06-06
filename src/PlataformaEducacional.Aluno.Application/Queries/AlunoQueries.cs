@@ -25,7 +25,7 @@ namespace PlataformaEducacional.Aluno.Application.Queries
                 alunos = alunos.Where(p => p.Matriculas != null && p.Matriculas.Any(x => x.Status == StatusMatriculaEnum.ATIVO));
 
             if (existeMatriculaAtiva == false)
-                alunos = alunos.Where(p => p.Matriculas == null || p.Matriculas.Any(x => x.Status != StatusMatriculaEnum.ATIVO));
+                alunos = alunos.Where(p => p.Matriculas == null || !p.Matriculas.Any(x => x.Status == StatusMatriculaEnum.ATIVO));
 
             if (!string.IsNullOrEmpty(nome))
                 alunos = alunos.Where(p => p.NomeCompleto.ToUpper().Contains(nome.ToUpper()));

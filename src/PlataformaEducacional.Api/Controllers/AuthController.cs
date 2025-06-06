@@ -75,7 +75,6 @@ namespace PlataformaEducacional.Api.Controllers
         /// Criação de conta para administrador
         /// </summary>
         [HttpPost("cadastrar-administrador")]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> CadastrarAdministrador(NovaContaModel model)
         {
             if (ModelState.IsValid)
@@ -109,7 +108,6 @@ namespace PlataformaEducacional.Api.Controllers
         /// Criação de conta para aluno
         /// </summary>
         [HttpPost("cadastrar-aluno")]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> CadastrarAluno(NovaContaModel model)
         {
             if (ModelState.IsValid)

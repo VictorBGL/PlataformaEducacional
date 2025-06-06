@@ -52,7 +52,7 @@ namespace PlataformaEducacional.Aluno.Application.Commands
             if (aluno.Matriculas != null && aluno.Matriculas.Any(p => p.CursoId == request.CursoId))
                 throw new DomainException("Existe matrícula realizada para este curso.");
 
-            var matricula = new Matricula(request.CursoId, request.AlunoId);
+            var matricula = new Matricula(request.AlunoId, request.CursoId);
 
             aluno.AdicionarMatricula(matricula);
 

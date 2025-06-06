@@ -39,7 +39,7 @@ namespace PlataformaEducacional.Financeiro.Domain
 
         public bool CartaoValido(string numeroCartao)
         {
-            if (DadosCartao.NumeroMascarado == "9999999999999999" && DadosCartao.CvvCartao == "123")
+            if (numeroCartao == "9999999999999999" && DadosCartao.CvvCartao == "123")
                 return true;
 
             return false;

@@ -152,7 +152,7 @@ namespace PlataformaEducacional.Api.Configurations
             var aluno = new Aluno.Domain.Aluno(userAlunoId, "Aluno", "aluno@aluno.com", dataNascimentoAluno);
 
             await alunoContext.Alunos.AddAsync(aluno);
-            await context.SaveChangesAsync();
+            await alunoContext.SaveChangesAsync();
 
             #endregion
         }
