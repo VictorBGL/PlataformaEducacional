@@ -35,13 +35,13 @@ namespace PlataformaEducacional.Aluno.Application.Events
                 return;
             }
 
-            if (aluno.Matriculas == null || !aluno.Matriculas.Any(p => p.CursoId == notification.CursoId))
+            var matricula = await _alunoRepository.BuscarMatricula(aluno.Id, notification.CursoId);
+
+            if (matricula == null)
             {
                 await _domainNotification.Handle(new DomainNotification("Matricula", $"Matrícula não encontrada para este curso"), new CancellationToken());
                 return;
             }
-
-            var matricula = await _alunoRepository.BuscarMatricula(aluno.Id, notification.CursoId);
 
             if (matricula.Status == StatusMatriculaEnum.CONCLUIDO)
             {

@@ -79,7 +79,7 @@ namespace PlataformaEducacional.Aluno.Application.Commands
                 throw new DomainException("Não é possível concluir a aula sem efetuar o pagamento.");
 
             if (aluno.Matriculas.Any(p => p.CursoId == request.CursoId && p.Status == StatusMatriculaEnum.CONCLUIDO))
-                throw new DomainException("Não é possível concluir a aula, pois o curso já foi concluído");
+                throw new DomainException("Não é possível concluir a aula, pois o curso já foi concluído.");
 
             var matricula = await _alunoRepository.BuscarMatricula(aluno.Id, request.CursoId);
 
