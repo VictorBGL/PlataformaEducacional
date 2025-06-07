@@ -18,6 +18,16 @@ namespace PlataformaEducacional.Conteudo.Domain
             Validar();
         }
 
+        public Curso(Guid id, string nome, bool ativo, ConteudoProgramatico conteudo)
+        {
+            Id = id;
+            Nome = nome;
+            Ativo = ativo;
+            Conteudo = conteudo;
+
+            Validar();
+        }
+
         public string Nome { get; private set; }
         public DateTime DataCadastro { get; private set; }
         public bool Ativo { get; private set; }

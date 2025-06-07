@@ -23,7 +23,7 @@ namespace PlataformaEducacional.Conteudo.Domain.Services
             if (!string.IsNullOrEmpty(nome))
                 cursos = cursos.Where(p => p.Nome.ToUpper().Contains(nome.ToUpper()));
 
-            return await cursos.ToListAsync();
+            return cursos.ToList();
         }
 
         public async Task<Curso> BuscarCurso(Guid id)
