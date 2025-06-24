@@ -44,6 +44,7 @@ Desenvolver uma plataforma educacional online com múltiplos bounded contexts (B
 A estrutura do projeto é organizada da seguinte forma:
 -   src/
     -   WebApis/PlataformaEducacional.Api/ - API RESTful
+    -   Tests/ - Testes por contexto Aluno/Conteudo/Financeiro
     -   Services/ - Contextos delimitados para Aluno/Conteudo/Financeiro
   
 -   README.md - Arquivo de Documentação do Projeto
@@ -54,7 +55,7 @@ A estrutura do projeto é organizada da seguinte forma:
 
 [](https://github.com/VictorBGL/PlataformaEducacional#5-funcionalidades-implementadas)
 
--   **CRUD para Contas, Orçamentos e Transações:**  Permite criar, editar, visualizar e excluir contas, orçamentos e transações.
+-   **CRUD para cursos e aulas:**  Permite criar, editar, visualizar e excluir cursos e aulas.
 -   **Autenticação e Autorização:**  Controle de acesso e autorização baseada em claims.
 -   **API RESTful:**  Exposição de endpoints para operações via API.
 -   **Documentação da API:**  Documentação automática dos endpoints da API utilizando Swagger.
@@ -78,21 +79,34 @@ A estrutura do projeto é organizada da seguinte forma:
     -   `cd PlataformaEducacional`
 2.  **Configuração do Banco de Dados:**
 
-4.  **Executar a API:**
+3.  **Executar a API:**
     -   `cd src/PlataformaEducacional.Api/`
     -   `dotnet run`
-    -   Acesse a documentação da API em:  [http://localhost:5001/swagger](http://localhost:5001/swagger)
+    -   Acesse a documentação da API em:  [https://localhost:7159/swagger](https://localhost:7159/swagger)
 
 ## **7. Instruções de Configuração**
 
 -   **JWT para API:**  As chaves de configuração do JWT estão no  `appsettings.json`.
 -   **Migrações do Banco de Dados:**  As migrações são gerenciadas pelo Entity Framework Core. Não é necessário aplicar devido a configuração do Seed de dados.
+  	 **Para adicionar novos migrations por contexto delimitado**
+	 É necessário executar estes comandos em seus respectivos terminais .Data ex: *PlataformaEducacional.Aluno.Data*
+	- Aluno: `dotnet ef migrations add PrimeiroMigration -s ../PlataformaEducacional.Api/ -p ./ -o ./Migrations -context AlunoContext`
+	- Conteúdo: `dotnet ef migrations add PrimeiroMigration -s ../PlataformaEducacional.Api/ -p ./ -o ./Migrations -context ConteudoContext`
+	-  Financeiro: `dotnet ef migrations add PrimeiroMigration -s ../PlataformaEducacional.Api/ -p ./ -o ./Migrations -context FinanceiroContext`
+ 
+**Usuários**
+
+admin@admin.com 
+Teste@123
+
+aluno@aluno.com  
+Teste@123
 
 ## **8. Documentação da API**
 
 A documentação da API está disponível através do Swagger. Após iniciar a API, acesse a documentação em:
 
-[http://localhost:5001/swagger](http://localhost:5001/swagger)
+[https://localhost:7159/swagger](https://localhost:7159/swagger)
 
 ## **9. Avaliação**
 
