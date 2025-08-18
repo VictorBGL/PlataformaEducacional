@@ -1,78 +1,141 @@
-# Feedback - Avaliação Geral
+# FEEDBACK – Avaliação Geral
+
+Este relatório segue o Plano Operacional fornecido e avalia o projeto "Plataforma de Educação Online" presente na solução `PlataformaEducacional.sln`.
 
 ## Organização do Projeto
-- **Pontos positivos:**
-  - Projeto estruturado em múltiplos diretórios com nomes coerentes e separados por contexto: `Aluno`, `Curso`, `Financeiro`, além do `Core`.
-  - Presença do arquivo de solução `.sln` e documentação inicial (`README.md`, `FEEDBACK.md`).
-  - Estrutura de projeto já direcionada para múltiplos Bounded Contexts.
 
-- **Pontos negativos:**
-  - O projeto ainda está em estágio inicial e não contém nenhuma API ou camada de aplicação para executar os casos de uso descritos.
-  - Ausência total de controllers, endpoints ou qualquer código voltado para exposição pública das funcionalidades.
+Pontos positivos:
+- Estrutura em múltiplos projetos por Bounded Contexts: `PlataformaEducacional.Curso.*`, `PlataformaEducacional.Aluno.*`, `PlataformaEducacional.Financeiro.*`, `PlataformaEducacional.Api`, `PlataformaEducacional.Core`.
+- Arquivo de solução `PlataformaEducacional.sln` na raiz.
+- Configurações separadas em `src/PlataformaEducacional.Api/Configurations` (Identity, ApiConfig, DependencyConfig, DbMigrationHelpers).
+
+Referências de arquivos:
+- `PlataformaEducacional.sln` (raiz)
+- `src/PlataformaEducacional.Api/Program.cs` (startup)
+- `src/PlataformaEducacional.Api/Configurations/*` (configs)
+
+---
 
 ## Modelagem de Domínio
-- **Pontos positivos:**
-  - Modelagem de domínios separada corretamente por contexto:
-    - `Curso` contém `Curso`, `Aula`, `ConteudoProgramatico`.
-    - `Aluno` contém `Aluno`, `Matricula`, `Certificado`, `HistoricoAprendizado`.
-    - `Financeiro` contém `Pagamento`, `DadosCartao`, `StatusPagamento`.
-  - Entidades estão bem encapsuladas com propriedades corretas e coerência no uso de agregados.
-  - Uso de abstrações como `IAggregateRoot`, `EntityBase`, `Validacoes` centralizadas no `Core`, o que demonstra conhecimento das boas práticas.
-  - Repositórios definidos por contrato (`IAlunoRepository`, `ICursoRepository`).
 
-- **Pontos negativos:**
-  - Nenhum comportamento de domínio foi implementado até o momento. As entidades possuem apenas estrutura de dados.
-  - Não há métodos de negócio ou validação de regras específicas nos agregados.
-  - Sem uso de eventos de domínio, mesmo com estrutura preparada no `Core`.
+Pontos positivos:
+- Evidência de três contextos/áreas distintas: Conteúdo, Aluno e Financeiro (ex.: `PlataformaEducacional.Curso.Domain`, `PlataformaEducacional.Aluno.Domain`, `PlataformaEducacional.Financeiro.Domain`).
+- Agregados e entidades principais parecem presentes: `Curso`, `Aula`, `Aluno`, `Matricula`, `Pagamento` (arquivos listados em `src/*`).
+
+Pontos negativos / observações:
+- Avaliação baseada apenas nos artefatos de código — não foram encontradas falhas arquiteturais óbvias, mas a presença de métodos sem cobertura (veja seção de cobertura) indica áreas sem testes (por exemplo, `PlataformaEducacional.Aluno.AntiCorruption.ConteudoService` mostra cobertura zero em métodos).
+
+Referências de arquivos:
+- Exemplos: `src/PlataformaEducacional.Curso.Domain/Curso.cs`, `src/PlataformaEducacional.Curso.Domain/Aula.cs`, `src/PlataformaEducacional.Aluno.Domain/Aluno.cs`.
+
+---
 
 ## Casos de Uso e Regras de Negócio
-- **Pontos negativos:**
-  - Nenhum caso de uso foi implementado.
-  - Ausência de comandos, handlers ou serviços de aplicação.
-  - Sem fluxo para matrícula, pagamento, progresso ou certificação.
-  - O projeto atualmente é apenas uma modelagem de entidades e estrutura de base.
 
-## Integração entre Contextos
-- **Pontos negativos:**
-  - Apesar dos domínios estarem fisicamente separados, não há nenhuma comunicação entre contextos.
-  - Nenhum mecanismo de integração foi modelado (eventos, mensagens, etc.).
-  - A separação ainda é apenas de namespace e estrutura, sem aplicação funcional.
+Pontos positivos:
+- Casos de uso essenciais parecem implementados em camadas de Application e Commands/Handlers (ex.: comandos em `PlataformaEducacional.Aluno.Application.Commands` e handlers registrados em `DependencyConfig.cs`).
 
-## Estratégias Técnicas Suportando DDD
-- **Pontos positivos:**
-  - Uso de agregados, entidades e VOs com estrutura sólida.
-  - Aplicação de contratos de repositório por contexto.
-  - Projeto utiliza um `Core` comum com abstrações úteis e reutilizáveis.
+Pontos negativos:
+- Não foi possível verificar a execução end-to-end de todos os fluxos (ex.: pagamento real) apenas por inspeção de código. Alguns serviços anti-corrupção (`Aluno.AntiCorruption`) têm baixa cobertura de testes.
 
-- **Pontos negativos:**
-  - Ausência de camada de aplicação impede a prática de Application Services, CQRS ou validação de regras por comando.
-  - Nenhuma implementação de testes de unidade ou integração.
+Referências:
+- `src/PlataformaEducacional.Aluno.Application/Commands`, `src/PlataformaEducacional.Financeiro.Apllication/Commands`.
+
+---
+
+## Integração de Contextos
+
+Pontos positivos:
+- Contextos diferentes usam DBContexts distintos (`Context`, `AlunoContext`, `ConteudoContext`, `FinanceiroContext`) e são migrados separadamente no startup (`DbMigrationHelpers`).
+
+Pontos negativos:
+- Há acoplamento leve via `DependencyConfig` (serviços injetados entre contextos). Isso pode ser aceitável dependendo do escopo, mas merece atenção para manter limites claros entre BCs.
+
+Referências:
+- `src/PlataformaEducacional.Api/Configurations/DbMigrationHelpers.cs`
+
+---
+
+## Estratégias de Apoio ao DDD, TDD e CQRS
+
+Pontos positivos:
+- Uso de MediatR (`services.AddMediatR(...)` em `ApiConfig.cs`) e separação Commands/Queries visível.
+- Projetos de teste existem para Aluno/Conteudo/Financeiro.
+
+Pontos negativos:
+- Cobertura de testes agregada está abaixo do requisito do escopo (ver próxima seção). Muitos arquivos/trechos não cobertos.
+
+Referências:
+- `src/*/*.Tests.csproj` 
+
+---
 
 ## Autenticação e Identidade
-- **Pontos negativos:**
-  - Nenhuma implementação de autenticação ou identidade no projeto até o momento.
+
+Pontos positivos:
+- Identity + JWT configurado em `IdentityConfig.cs`. O pipeline adiciona autenticação e autorização com JWT, e configura leitura de token via cookie "Token".
+
+Pontos negativos:
+- `RequireHttpsMetadata` está como `true` no `AddJwtBearer` — isso é seguro para produção; em desenvolvimento, pode exigir ajuste (ou adicionar configuração condicional). Verificar também políticas de expiração e validação de emissor/audience conforme necessidade.
+
+Referências:
+- `src/PlataformaEducacional.Api/Configurations/IdentityConfig.cs`
+- `src/PlataformaEducacional.Api/appsettings.json` (AppSettings.Secret presente)
+
+---
 
 ## Execução e Testes
-- **Pontos negativos:**
-  - Não há qualquer ponto de execução no projeto: ausência de camada API, console ou testes.
-  - Sem infraestrutura para rodar migrations, banco de dados ou comandos.
+
+Observação:
+- A cobertura agregada por projeto não foi automaticamente combinada; porém mesmo a maior das três (40.9%) está bem abaixo do requisito de 80% do Documento de Escopo.
+
+Critério: cobertura mínima de 80% — Status: Não atendido.
+
+---
 
 ## Documentação
-- **Pontos positivos:**
-  - `README.md` e `FEEDBACK.md` presentes.
 
-- **Pontos negativos:**
-  - README ainda muito raso, não explica a proposta de modelagem ou como evoluir o projeto.
+Pontos positivos:
+- `README.md` presente na raiz (fornece visão geral).
+- Swagger configurado em `ApiConfig.cs` para exploração da API.
 
-## Conclusão
+Pontos negativos:
+- Não há `FEEDBACK.md` pré-existente (este arquivo foi criado agora). Documentação dos endpoints e fluxos poderia ser mais detalhada (ex.: exemplo de tokens, scripts para seed/migrate, como executar localmente com SQLite). Recomendo um `docs/` com instruções de execução local.
 
-Este projeto apresenta uma **estrutura inicial promissora de modelagem de domínios**, com Bounded Contexts bem separados e entidades corretamente organizadas. Contudo, **nenhuma lógica de negócio foi implementada até o momento**: o projeto contém apenas a camada de domínio em estrutura bruta, sem qualquer aplicação prática dos fluxos esperados.
+Referências:
+- `src/PlataformaEducacional.Api/Configurations/ApiConfig.cs` (Swagger)
 
-Para evoluir, o projeto precisa implementar:
+---
 
-- Camada de aplicação com comandos, services e handlers.
-- Camada de API para expor os fluxos.
-- Integração entre os contextos por meio de eventos.
-- Testes automatizados para validar comportamento do domínio.
+## Matriz de Avaliação (notas por critério)
 
-No estado atual, é um esqueleto de arquitetura — bem organizado, mas ainda incompleto.
+- Funcionalidade (30%): 8
+  - Motivo: Casos de uso essenciais implementados (cadastro de curso/aula, matrícula, fluxo de pagamento aparente via comandos), mas parte da lógica não possui cobertura de testes e não foi possível validar fluxos end-to-end.
+
+- Qualidade do Código (20%): 7
+  - Motivo: Código com boa separação de projetos e padrões (DDD, MediatR). Entretanto, há áreas sem testes, serviços anti-corrupção sem cobertura e possíveis pontos de acoplamento a revisar.
+
+- Eficiência e Desempenho (20%): 8
+  - Motivo: Sem evidências de problemas de complexidade ou algoritmos custosos. Uso padrão de EF Core e DI. Pontuação ligeiramente reduzida por falta de métricas/benchmarks.
+
+- Inovação e Diferenciais (10%): 8
+  - Motivo: Uso de .NET 9 (preview) e recursos modernos; separação em BCs e uso de MediatR e AutoMapper.
+
+- Documentação e Organização (10%): 7
+  - Motivo: README e Swagger presentes; falta documentação detalhada de execução local, scripts e explicação dos bounded contexts.
+
+- Resolução de Feedbacks (10%): 10
+  - Motivo: Sem `FEEDBACK.md` anterior — atribuído 10 conforme regra.
+
+Cálculo da nota final (peso aplicado):
+
+- Funcionalidade: 8 * 0.30 = 2.4
+- Qualidade do Código: 7 * 0.20 = 1.4
+- Eficiência e Desempenho: 8 * 0.20 = 1.6
+- Inovação e Diferenciais: 8 * 0.10 = 0.8
+- Documentação e Organização: 7 * 0.10 = 0.7
+- Resolução de Feedbacks: 10 * 0.10 = 1.0
+
+Soma = 7.9
+
+🎯 Nota Final: 7.9 / 10
